@@ -8,7 +8,6 @@ class QuitionScreen extends StatefulWidget {
   const QuitionScreen({super.key,required this.onSelecAnswer});
 
   final void Function(String answer) onSelecAnswer;
-
   @override
   State<QuitionScreen> createState() {
     return _QuitionScreenState();
@@ -47,7 +46,7 @@ class _QuitionScreenState extends State<QuitionScreen> {
               height: 30,
             ),
             // using map key:value dynmically
-            ...currentQuestion.getShuffledAns().map((ans) {
+            ...currentQuestion.shuffledAns.map((ans) {
               return Optionbutton(txt: ans, ontap: (){optionQuestion(ans);  },);
             })
             // and second method we can useable

@@ -7,6 +7,7 @@ import 'result_screen.dart';
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
 
+
   @override
   State<Quiz> createState() {
     return _QuizeState();
@@ -14,7 +15,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizeState extends State<Quiz> {
-   List<String> selecteAnswer = []; // store the selected ans
+   List<String> _selecteAnswer = []; // store the selected ans
 
   Widget? activeScreen; // ? means not a null
 
@@ -33,13 +34,19 @@ class _QuizeState extends State<Quiz> {
       );
     });
   }
+   void restartQuiz(){
+        setState(() {
+          _selecteAnswer = [];
+          activeScreen = QuitionScreen(onSelecAnswer: chooesAnswer);
+        });
+   }
 
   void chooesAnswer(String answer) {
-     selecteAnswer.add(answer);
+     _selecteAnswer.add(answer);
 
-    if (selecteAnswer.length == question.length) {
+    if (_selecteAnswer.length == question.length) {
       setState(() {
-        activeScreen = ResultScreen(choesenAnswer: selecteAnswer,);
+        activeScreen = ResultScreen(choesenAnswer: _selecteAnswer,restartQuiz: restartQuiz,);
       });
     }
 
@@ -48,13 +55,15 @@ class _QuizeState extends State<Quiz> {
   @override
   Widget build(context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            Color.fromARGB(244, 27, 81, 220),
-            Color.fromARGB(228, 27, 81, 220),
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+          color: Color(0xFF3378FF),
+          // gradient: LinearGradient(colors: [
+          //   Color.fromARGB(244, 27, 81, 220),
+          //   Color.fromARGB(228, 27, 81, 220),
+          // ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
         ),
         child: activeScreen, //this is a variable type widget
       ),
